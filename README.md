@@ -1,7 +1,7 @@
 ![GitHub repo size](https://img.shields.io/github/repo-size/VivIngInf/VivereFiligrana)
 ![GitHub License](https://img.shields.io/github/license/VivIngInf/VivereFiligrana)
 
-# Vivere Filigrana - Document Conversion and Watermarking Tool
+# Vivere Filigrana - Document Conversion and Watermarking Tool 🔏
 
 ## Language Toggle
 
