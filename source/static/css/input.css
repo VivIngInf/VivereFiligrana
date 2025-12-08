@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+@font-face {  
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 200 700;
+    font-display: swap;
+    src: url("../fonts/Montserrat.ttf") format("ttf");
+}
+
+@theme {
+    --color-blu-vivere: #071D99;
+    --color-white-vivere: #F3F3FD;
+    --color-black-vivere: #0A0A0A;
+    --font-montserrat: "Montserrat", sans-serif; 
+}

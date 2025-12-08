@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/output.css') }}">
+
+        <link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+        <title>Document</title>
+    </head>
+    <body class="h-screen font-montserrat text-white-vivere">
+        <header class="bg-white-vivere h-20 flex flex-row justify-between items-center w-screen text-black-vivere">
+            <div class="flex flex-row justify-start items-center w-full">
+                <img src="{{ url_for('static', filename='images/vivereLogo.png') }}" alt="" class="w-16 h-16 mx-5 my-2">
+                <h1 class="text-xl font-semibold"> Vivere Filigrana </h1>
+            </div>        
+            <nav class="flex flex-row justify-end items-center mx-5 my-2 w-full">
+                <a href="#Introduction" class="text-xl font-semibold ml-5 hover:scale-110 transition-all duration-200"> Introduzione </a>
+                <a href="#Filigrana" class="text-xl font-semibold ml-5 hover:scale-110 transition-all duration-200"> Filigrana </a>
+                <a href="#Credits" class="text-xl font-semibold ml-5 hover:scale-110 transition-all duration-200"> Crediti </a>
+            </nav>
+
+        </header>        
+
+        <!-- Background -->
+        <div class="absolute h-screen w-screen bgimage bg-center bg-cover z-0 brightness-50"></div>
+        
+        <!-- Introduction -->
+        <section id="Introduction" class="flex flex-col h-full w-screen justify-center gap-10 items-center z-10 backdrop-blur-sm p-20 text-center">
+            <h1 class="text-6xl font-bold text-shadow-lg"> VIVERE FILIGRANA </h1>
+            <p class="text-3xl text-shadow-lg"> Vivere filigrana è una utility che permette di filigranare i file PDF e Word con le filigrane dell'associazione studentesca "Vivere Ateneo" e dei suoi staff.  </p>
+        </section>
+
+
+        <!-- Form -->
+        <section id="Filigrana" class="flex flex-col h-full w-screen justify-center gap-10 items-center z-10 backdrop-blur-sm p-20 text-center bg-radial-[at_25%_25%] from-[#0DC08F] to-[#00AFB9] to-75% ">
+            
+            <h1 class="text-6xl font-bold text-shadow-lg"> FILIGRANA </h1>
+            
+            <form action="/upload" method="POST" enctype="multipart/form-data" class="w-full h-full flex flex-row items-center justify-around">
+               
+                <label id="drop-zone" for="documents" class="border-4 rounded-4xl cursor-pointer border-white-vivere border-dashed w-1/2 h-4/5 flex flex-col gap-10 justify-center items-center hover:scale-105 transition-all duration-200 drop-zone">
+
+                    <i class="text-8xl fa-solid fa-cloud-arrow-up"></i>
+                    <p class="text-2xl"> Trascina i file che vuoi filigranare </p>
+                    <p class="text-2xl"> OPPURE </p>
+                    <i class="text-8xl fa-solid fa-arrow-pointer"></i>                    
+                    <p class="text-2xl"> Clicca per selezionarli </p>
+
+                    <input type="file" required multiple name="documents" id="documents" class="hidden" accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.pdf">
+
+                </label>
+
+                <div class="flex flex-col justify-center items-center w-1/2 text-3xl">
+
+                    <div class="w-1/2 flex flex-col justify-center items-center">
+                        <ul id="preview" class="text-xl font-bold mb-20 text-left">
+                            Non hai ancora inserito nessun file da filigranare!
+                        </ul>
+
+                        <label id="opacityLabel" for="opacity">Opacità: </label>
+                        <input type="range" id="opacity" name="opacity" list="markers" min="5" max="30" value="15" oninput="changeOpacity(event)">
+
+                        <datalist id="markers">
+                            <option value="5"></option>
+                            <option value="10"></option>
+                            <option value="15"></option>
+                            <option value="20"></option>
+                            <option value="25"></option>
+                            <option value="30"></option>
+                        </datalist>
+                          
+                        <div class="w-1/2 flex flex-row justify-between text-center items-center align-middle mt-10">
+                            <label for="logo"> Usare il logo? </label>
+                            <input type="checkbox" required name="logo" id="logo">
+                        </div>
+                                                
+                        <select required name="staff" id="staff" class="mt-10">
+                            <option selected disabled> Seleziona uno staff </option>
+                            <option value="Ingegneria"> Ingegneria </option>
+                            <!-- 
+                                QUANDO AVREMO I PDF DEGLI ALTRI STAFF, BISOGNERÀ DECOMMENTARE QUESTA PARTE QUI
+
+                                <option value="Medicina" disabled> Medicina </option>
+                                <option value="Formazione" disabled> Formazione </option>
+                                <option value="Lettere" disabled> Lettere </option>
+                                <option value="Architettura" disabled> Architettura </option>
+                                <option value="Muffin" disabled> Muffin </option>
+                                <option value="Giurisprudenza" disabled> Giurisprudenza </option>
+                                <option value="Economia" disabled> Economia </option> 
+                            -->
+                            <option disabled> Coming soon... </option>
+                        </select>
+
+                        <div class="mt-10">
+                            <input id="clear-btn" type="reset" value="Reset" class="text-2xl bg-white-vivere hover:bg-red-400 active:bg-red-600 hover:text-white-vivere active:text-white-vivere rounded-full w-full px-10 py-3 text-black-vivere shadow-2xl hover:scale-110 transition-all duration-200 cursor-pointer mb-10">
+                            <button type="submit" class="text-2xl bg-white-vivere hover:bg-yellow-400 active:bg-yellow-600 hover:text-white-vivere active:text-white-vivere rounded-full w-full px-10 py-3 text-black-vivere shadow-2xl hover:scale-110 transition-all duration-200 cursor-pointer">Filigrana</button>
+                        </div>  
+                    </div>
+                </div>
+            </form>
+        </section>
+
+        <!-- Made by -->
+        <section id="Credits" class="flex flex-col h-full w-screen justify-center gap-10 items-center z-10 backdrop-blur-sm p-20 text-center bg-radial-[at_25%_25%] from-[#3C4CDB] to-[#360083] to-75%">
+            <h1 class="text-6xl font-bold text-shadow-lg"> MADE WITH ❤️ BY </h1>
+            <div class="flex flex-row mt-20 justify-around items-center">
+                <img src="{{ url_for('static', filename='images/fotoDaniele.png') }}" alt="Daniele Susino Pro Pic" class="h-96 w-96 rounded-full shadow-2xl hover:scale-110 transition-all duration-200">
+                <div class="flex flex-col gap-10 w-2/5">
+                    <h1 class="text-6xl font-bold text-shadow-lg"> Daniele Orazio Susino </h1>
+                    <div class="flex flex-col items-center gap-5 w-full">
+                        <a href="https://www.linkedin.com/in/susinodaniele/" class="text-2xl bg-white-vivere hover:bg-gray-300 active:bg-gray-400 rounded-full w-full px-10 py-3 text-black-vivere shadow-2xl hover:scale-110 transition-all duration-200 cursor-pointer"> <i class="fa-brands fa-linkedin"></i> Linkedin </a>
+                        <a href="https://www.instagram.com/daniele.susino/" class="text-2xl bg-white-vivere hover:bg-gray-300 active:bg-gray-400 rounded-full w-full px-10 py-3 text-black-vivere shadow-2xl hover:scale-110 transition-all duration-200 cursor-pointer"> <i class="fa-brands fa-instagram-square"></i> Instagram </a>
+                    </div>
+                </div> 
+
+            </div>
+            
+        </section>
+
+        <footer class=" px-5 py-2 fixed bottom-0 text-white-vivere flex flex-row justify-between w-screen">
+            <p> © Vivere Ingegneria 2025 - <a href="#Credits" class="hover:brightness-75 active:brightness-50 transition-all duration-200">Daniele Orazio Susino </a> </p>
+            <p> Credits prima versione - <a href="https://www.linkedin.com/in/giuseppe-g/" class="hover:brightness-75 active:brightness-50 transition-all duration-200"> Ganci Dev </a> & <a href="https://www.instagram.com/ashenclock_/" class="hover:brightness-75 active:brightness-50 transition-all duration-200"> Ashenclock </a> </p>
+            
+        </footer>
+
+    </body>
+
+    <style>
+        .bgimage{
+            background-image: url({{url_for('static', filename='images/background.jpg')}});
+        }
+
+        /* CSS per quando c'è un file sopra (durante il drag) */
+        .drop-zone.dragging {
+            border-color: #02bc2d; /* Cambia colore bordo durante il drag */
+            background-color: rgba(0, 192, 3, 0.373); /* Aggiungi sfondo trasparente per evidenziare */
+            scale: 1.05; /* Rende l'effetto hover persistente durante il drag */
+        }
+
+        .remove-button {
+            transition: all 0.2s ease; /* Transizione fluida per tutti gli effetti */
+            cursor: pointer;
+        }
+
+        .remove-button:hover {
+            filter: brightness(75%); /* Riduce la luminosità al 75% al passaggio del mouse */
+        }
+
+        .remove-button:active {
+            filter: brightness(50%); /* Riduce ulteriormente la luminosità al 50% quando il pulsante è attivo (cliccato) */
+        }
+
+    </style>
+
+    <script>
+        const opacityValue = document.getElementById("opacity");
+        const opacityLabel = document.getElementById("opacityLabel");
+        const preview = document.getElementById("preview");
+        const dropZone = document.getElementById("drop-zone");
+        const clearBtn = document.getElementById("clear-btn");
+
+        let filesArray = [];
+
+        dropZone.addEventListener("drop", dropHandler);
+
+        // Funzione per gestire il dragover
+        dropZone.addEventListener("dragover", (e) => {
+            const fileItems = [...e.dataTransfer.items].filter(
+                (item) => item.kind === "file"
+            );
+            if (fileItems.length > 0) {
+                e.preventDefault();
+            }
+            dropZone.classList.add('dragging');
+        });
+
+        // Funzione per visualizzare il nome dei file PDF e DOCX
+        function displayFiles(files) {
+
+            // Se non ci sono file, mostriamo il messaggio appropriato
+            if (files.length === 0) {
+                preview.innerHTML = "Non hai ancora inserito nessun file da filigranare!";
+                return;
+            }
+
+            // Resettiamo l'array `filesArray` per evitare di aggiungere file duplicati
+            filesArray = Array.from(files); // Crea un nuovo array di file, sostituendo i vecchi
+
+            // Mostra i file nella lista
+            preview.innerHTML = ""; // Pulisce l'anteprima prima di aggiungere i nuovi file
+
+            for (const file of files) {
+                const li = document.createElement("li");
+                li.classList.add('file-item');
+                li.setAttribute('data-filename', file.name); // Impostiamo il nome del file come dato per il li
+
+                const fileName = document.createTextNode(file.name);
+                li.appendChild(fileName);
+                
+                // Aggiungiamo un'icona per il tipo di file
+                const icon = document.createElement("span");
+                icon.classList.add('file-icon');
+
+                icon.textContent = "📄"; // Icona per PDF
+                icon.classList.add('mr-5');
+
+
+                // Aggiungiamo un bottone di rimozione
+                const removeButton = document.createElement("button");
+                removeButton.textContent = "❌"; // Puoi usare un'icona o un testo
+                removeButton.classList.add('remove-button');
+                removeButton.classList.add('ml-5');
+                removeButton.addEventListener('click', () => {
+                    removeFile(file, li); // Chiama la funzione per rimuovere il file
+                });
+
+                // Mettiamo tutto insieme
+                li.insertBefore(icon, fileName); // Mettiamo l'icona prima del nome
+                li.appendChild(removeButton); // Aggiungiamo il pulsante di rimozione
+                preview.appendChild(li);
+            }
+        }
+
+        // Funzione per rimuovere un file dalla lista e dall'array
+        function removeFile(file, fileElement) {
+            // Rimuovi il file dall'array globale
+            filesArray = filesArray.filter(f => f !== file);
+
+            // Rimuovi l'elemento dalla lista UI
+            fileElement.remove();
+
+            // Rimuovi il file dall'input file
+            const inputFiles = [...fileInput.files];
+            const updatedFiles = inputFiles.filter(f => f !== file);
+            
+            // Costruisci un nuovo FileList senza il file rimosso
+            const dataTransfer = new DataTransfer();
+            updatedFiles.forEach(f => dataTransfer.items.add(f));
+            fileInput.files = dataTransfer.files; // Riassegna il FileList aggiornato all'input
+
+            // Se non ci sono più file nell'array, mostra un messaggio
+            if (filesArray.length === 0) {
+                preview.innerHTML = "Non hai ancora inserito nessun file da filigranare!";
+            }
+
+            console.log(filesArray);
+            console.log(fileInput.files);
+        }
+
+
+        // Funzione per gestire il drop dei file
+        function dropHandler(ev) {
+            ev.preventDefault();
+            const files = [...ev.dataTransfer.items]
+                .map(item => item.getAsFile())
+                .filter(file => file && (file.name.endsWith('.pdf') || file.name.endsWith('.docx')));
+            displayFiles(files);
+        }
+
+        // Funzione per gestire il caricamento dei file via input
+        const fileInput = document.getElementById("documents");
+        fileInput.addEventListener("change", (e) => {
+            displayFiles(e.target.files);
+        });
+
+        // Aggiungi un evento 'dragleave' per rimuovere la classe 'dragging' quando il file esce dalla zona
+        dropZone.addEventListener('dragleave', function(event) {
+            dropZone.classList.remove('dragging');
+        });
+
+        // Aggiungi un evento 'drop' per rimuovere la classe 'dragging' quando il file viene rilasciato
+        dropZone.addEventListener('drop', function(event) {
+            event.preventDefault();
+            dropZone.classList.remove('dragging');
+        });
+
+        clearBtn.addEventListener("click", () => {
+            preview.innerHTML = "Non hai ancora inserito nessun file da filigranare!"; // Rimuove tutto il contenuto della lista
+        });
+
+        function changeOpacity() { 
+            opacityLabel.textContent = "Opacità: " + opacityValue.value + "%"; 
+        }
+
+        changeOpacity();
+
+    </script>
+
+</html>
