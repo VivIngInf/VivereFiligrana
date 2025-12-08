@@ -10,12 +10,12 @@ import os
 load_dotenv()
 
 # Reads and converts te DEBUG ambient variable
-debug_mode = os.getenv('DEBUG', 'False') == 'True'  # Defaults to False
+debugMode = os.getenv('DEBUG', 'False') == 'True'  # Defaults to False
 
 app = Flask(__name__)
 
 # Set debug mode in flask based on ambient variable
-app.debug = debug_mode
+app.debug = debugMode
 
 # Configs for file upload
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
@@ -210,9 +210,10 @@ def upload_file():
         if os.path.exists(zipOutput):
             os.remove(zipOutput)
 
-# Set Livereload service
+# Set Livereload service but only for debug mode
 if __name__ == '__main__':
-    server = Server(app.wsgi_app)  
-    server.watch('./templates/**')  # Monitor templates directory
-    server.watch('./static/**')     # Monitors static directory
-    server.serve(port=5000)         # Starts server on port 5000
+    if debugMode:
+        server = Server(app.wsgi_app)  
+        server.watch('./templates/**')  # Monitor templates directory
+        server.watch('./static/**')     # Monitors static directory
+        server.serve(port=5000)         # Starts server on port 5000
