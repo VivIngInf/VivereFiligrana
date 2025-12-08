@@ -85,7 +85,7 @@ Vivere Filigrana è stato sviluppato da:
         <th>Daniele Orazio Susino</th>      
     </tr>
     <tr>
-        <td><img src="./resources/images/Daniele Orazio Susino.jpg" alt="Daniele Orazio Susino" width="150"></td>     
+        <td><img src="../images/Daniele Orazio Susino.jpg" alt="Daniele Orazio Susino" width="150"></td>     
     </tr>
     <tr>
         <td>
