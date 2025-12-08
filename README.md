@@ -1,12 +1,8 @@
 # Vivere Filigrana - Document Conversion and Watermarking Tool
 
----
-
 ## Language Toggle
 
 [🇮🇹 Italiano](./resources/docs/README-italian.md) | [🇬🇧 English](#)
-
----
 
 ## Introduction
 
@@ -105,8 +101,6 @@ But was originally developed by:
 
 - [GanciDev](https://www.linkedin.com/in/giuseppe-g/)
 - [Ashenclock](https://www.instagram.com/ashenclock_/)
-
----
 
 ## License
 

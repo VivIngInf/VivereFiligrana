@@ -1,14 +1,10 @@
-# Vivere Filigrana - Document Conversion and Watermarking Tool
+# Vivere Filigrana - Utility per la conversione e la filigrana di documenti
 
----
-
-## Language Toggle
+## Lingue disponibili
 
 [🇮🇹 Italiano](#) | [🇬🇧 English](../../README.md)
 
----
-
-## Introduction
+## Introduzione
 
 Benvenuti in **Vivere Filigrana**, lo strumento di conversione documenti e apposizione filigrana di Vivere Ateneo!
 
@@ -42,7 +38,7 @@ Ecco la struttura delle directory del progetto:
 └── README.md ℹ️           	    # Il file che stai leggendo ora
 ```
 
-## Requirements
+## Requisiti
 
 Prima di eseguire questo progetto, è necessario installare i seguenti strumenti:
 
@@ -70,7 +66,7 @@ sudo apt install libreoffice
 
 - **npm (development only)**: npm è utilizzato solo durante lo sviluppo e non è richiesto per il deployment.
 
-## Running the Application
+## Avviare l'applicazione
 
 Una volta installate tutte le dipendenze e settato l'enviroment, puoi avviare l'applicazione usando il comando: 
 
@@ -105,8 +101,6 @@ Ma originariamente era stato sviluppato da:
 
 - [GanciDev](https://www.linkedin.com/in/giuseppe-g/)
 - [Ashenclock](https://www.instagram.com/ashenclock_/)
-
----
 
 ## Licenza
 
