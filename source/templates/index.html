@@ -11,26 +11,27 @@
         <title>Document</title>
     </head>
     <body class="h-screen font-montserrat text-white-vivere">
-        <header class="bg-white-vivere h-20 flex flex-row justify-between items-center w-screen text-black-vivere">
+        <header class="bg-white-vivere h-20 flex flex-row justify-between items-center w-screen text-black-vivere text-base md:text-base lg:text-lg xl:text-xl">
             <div class="flex flex-row justify-start items-center w-full">
-                <img src="{{ url_for('static', filename='images/vivereLogo.png') }}" alt="" class="w-16 h-16 mx-5 my-2">
-                <h1 class="text-xl font-semibold"> Vivere Filigrana </h1>
+                <img src="{{ url_for('static', filename='images/vivereLogo.png') }}" alt="" class="w-10 h-10 lg:w-16 lg:h-16 mx-2.5 my-1 md:mx-5 md:my-2">
+                <h1 class="font-semibold hidden sm:block"> Vivere Filigrana </h1>
             </div>        
-            <nav class="flex flex-row justify-end items-center mx-5 my-2 w-full">
-                <a href="#Introduction" class="text-xl font-semibold ml-5 hover:scale-110 transition-all duration-200"> Introduzione </a>
-                <a href="#Filigrana" class="text-xl font-semibold ml-5 hover:scale-110 transition-all duration-200"> Filigrana </a>
-                <a href="#Credits" class="text-xl font-semibold ml-5 hover:scale-110 transition-all duration-200"> Crediti </a>
+            <nav class="flex flex-row justify-end items-center mx-2.5 md:mx-5 my-2 w-full gap-2 md:gap-5">
+                <a href="#Introduction" class="font-semibold hover:scale-110 transition-all duration-200"> Introduzione </a>
+                <a href="#Filigrana" class="font-semibold hover:scale-110 transition-all duration-200"> Filigrana </a>
+                <a href="#Credits" class="font-semibold hover:scale-110 transition-all duration-200"> Crediti </a>
             </nav>
-
         </header>        
 
         <!-- Background -->
         <div class="absolute h-screen w-screen bgimage bg-center bg-cover z-0 brightness-50"></div>
         
         <!-- Introduction -->
-        <section id="Introduction" class="flex flex-col h-full w-screen justify-center gap-10 items-center z-10 backdrop-blur-sm p-20 text-center">
-            <h1 class="text-6xl font-bold text-shadow-lg"> VIVERE FILIGRANA </h1>
-            <p class="text-3xl text-shadow-lg"> Vivere filigrana è una utility che permette di filigranare i file PDF e Word con le filigrane dell'associazione studentesca "Vivere Ateneo" e dei suoi staff.  </p>
+        <section id="Introduction" class="flex flex-col h-full w-screen justify-center gap-10 items-center z-10 backdrop-blur-sm p-5 md:p-20 text-center">
+            <h1 class="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-shadow-lg"> VIVERE FILIGRANA </h1>
+            <p class="text-xl md:text-2xl lg:text-3xl text-shadow-lg w-4/5 md:w-2/3"> 
+                Vivere Filigrana è un'utility per applicare filigrane personalizzate su PDF e Word, utilizzando i marchi ufficiali dell'associazione Vivere Ateneo e dei suoi staff. <br>
+            </p>
         </section>
 
 
@@ -55,48 +56,58 @@
 
                 <div class="flex flex-col justify-center items-center w-1/2 text-3xl">
 
-                    <div class="w-1/2 flex flex-col justify-center items-center">
-                        <ul id="preview" class="text-xl font-bold mb-20 text-left">
+                    <div class="w-1/2 flex flex-col justify-center items-center gap-10">
+                        <ul id="preview" class="text-xl font-bold mb-10 text-left">
                             Non hai ancora inserito nessun file da filigranare!
                         </ul>
 
-                        <label id="opacityLabel" for="opacity">Opacità: </label>
-                        <input type="range" id="opacity" name="opacity" list="markers" min="5" max="30" value="15" oninput="changeOpacity(event)">
+                        <div class="w-full flex flex-row justify-between items-center gap-5">
+                            <label id="opacityLabel" for="opacity" class="font-bold">Opacità: </label>
+                            <input type="range" id="opacity" name="opacity" list="markers" min="5" max="30" value="15" step="5" oninput="changeOpacity(event)">
+                        
+                            <datalist id="markers">
+                                <option value="5"></option>
+                                <option value="10"></option>
+                                <option value="15"></option>
+                                <option value="20"></option>
+                                <option value="25"></option>
+                                <option value="30"></option>
+                            </datalist>
+                        
+                        </div>                    
 
-                        <datalist id="markers">
-                            <option value="5"></option>
-                            <option value="10"></option>
-                            <option value="15"></option>
-                            <option value="20"></option>
-                            <option value="25"></option>
-                            <option value="30"></option>
-                        </datalist>
-                          
-                        <div class="w-1/2 flex flex-row justify-between text-center items-center align-middle mt-10">
-                            <label for="logo"> Usare il logo? </label>
-                            <input type="checkbox" required name="logo" id="logo">
+                        <div class=" w-full flex flex-row justify-between items-center gap-5">
+                            <p class="font-bold"> Usare il logo? </p>
+                            <div class="checkbox-wrapper-6">
+                                <input type="checkbox" name="logo" id="logo" class="tgl tgl-light">
+                                <label for="logo" class="tgl-btn"></label>
+                            </div>
                         </div>
-                                                
-                        <select required name="staff" id="staff" class="mt-10">
-                            <option selected disabled> Seleziona uno staff </option>
-                            <option value="Ingegneria"> Ingegneria </option>
-                            <!-- 
-                                QUANDO AVREMO I PDF DEGLI ALTRI STAFF, BISOGNERÀ DECOMMENTARE QUESTA PARTE QUI
+                  
+                        <div class="w-full flex flex-row justify-between items-center gap-5">
+                            <label for="staff" class="font-bold"> Staff </label>
+                            <select required name="staff" id="staff">
+                                <option selected disabled> Seleziona uno staff </option>
+                                <option value="Ingegneria"> Ingegneria </option>
+                                <!-- 
+                                    QUANDO AVREMO I PDF DEGLI ALTRI STAFF, BISOGNERÀ DECOMMENTARE QUESTA PARTE QUI
 
-                                <option value="Medicina" disabled> Medicina </option>
-                                <option value="Formazione" disabled> Formazione </option>
-                                <option value="Lettere" disabled> Lettere </option>
-                                <option value="Architettura" disabled> Architettura </option>
-                                <option value="Muffin" disabled> Muffin </option>
-                                <option value="Giurisprudenza" disabled> Giurisprudenza </option>
-                                <option value="Economia" disabled> Economia </option> 
-                            -->
-                            <option disabled> Coming soon... </option>
-                        </select>
+                                    <option value="Medicina" disabled> Medicina </option>
+                                    <option value="Formazione" disabled> Formazione </option>
+                                    <option value="Lettere" disabled> Lettere </option>
+                                    <option value="Architettura" disabled> Architettura </option>
+                                    <option value="Muffin" disabled> Muffin </option>
+                                    <option value="Giurisprudenza" disabled> Giurisprudenza </option>
+                                    <option value="Economia" disabled> Economia </option> 
+                                -->
+                                <option disabled> Coming soon... </option>
+                            </select>
+                        </div>
+
 
                         <div class="mt-10">
-                            <input id="clear-btn" type="reset" value="Reset" class="text-2xl bg-white-vivere hover:bg-red-400 active:bg-red-600 hover:text-white-vivere active:text-white-vivere rounded-full w-full px-10 py-3 text-black-vivere shadow-2xl hover:scale-110 transition-all duration-200 cursor-pointer mb-10">
-                            <button type="submit" class="text-2xl bg-white-vivere hover:bg-yellow-400 active:bg-yellow-600 hover:text-white-vivere active:text-white-vivere rounded-full w-full px-10 py-3 text-black-vivere shadow-2xl hover:scale-110 transition-all duration-200 cursor-pointer">Filigrana</button>
+                            <input id="clear-btn" type="reset" value="Reset" class="text-2xl bg-white-vivere hover:bg-red-400 active:bg-red-600 hover:text-white-vivere active:text-white-vivere rounded-full w-full px-10 py-3 text-black-vivere shadow-2xl hover:scale-110 transition-all duration-200 cursor-pointer mb-10 ease-in-out">
+                            <button type="submit" class="text-2xl bg-white-vivere hover:bg-blu-vivere active:bg-blue-950 hover:text-white-vivere active:text-white-vivere rounded-full w-full px-10 py-3 text-black-vivere shadow-2xl hover:scale-110 transition-all duration-200 cursor-pointer ease-in-out">Filigrana</button>
                         </div>  
                     </div>
                 </div>
@@ -104,15 +115,15 @@
         </section>
 
         <!-- Made by -->
-        <section id="Credits" class="flex flex-col h-full w-screen justify-center gap-10 items-center z-10 backdrop-blur-sm p-20 text-center bg-radial-[at_25%_25%] from-[#3C4CDB] to-[#360083] to-75%">
-            <h1 class="text-6xl font-bold text-shadow-lg"> MADE WITH ❤️ BY </h1>
-            <div class="flex flex-row mt-20 justify-around items-center">
-                <img src="{{ url_for('static', filename='images/fotoDaniele.png') }}" alt="Daniele Susino Pro Pic" class="h-96 w-96 rounded-full shadow-2xl hover:scale-110 transition-all duration-200">
-                <div class="flex flex-col gap-10 w-2/5">
-                    <h1 class="text-6xl font-bold text-shadow-lg"> Daniele Orazio Susino </h1>
-                    <div class="flex flex-col items-center gap-5 w-full">
-                        <a href="https://www.linkedin.com/in/susinodaniele/" class="text-2xl bg-white-vivere hover:bg-gray-300 active:bg-gray-400 rounded-full w-full px-10 py-3 text-black-vivere shadow-2xl hover:scale-110 transition-all duration-200 cursor-pointer"> <i class="fa-brands fa-linkedin"></i> Linkedin </a>
-                        <a href="https://www.instagram.com/daniele.susino/" class="text-2xl bg-white-vivere hover:bg-gray-300 active:bg-gray-400 rounded-full w-full px-10 py-3 text-black-vivere shadow-2xl hover:scale-110 transition-all duration-200 cursor-pointer"> <i class="fa-brands fa-instagram-square"></i> Instagram </a>
+        <section id="Credits" class="flex flex-col h-full w-screen justify-center md:gap-10 items-center z-10 backdrop-blur-sm p-10 md:p-20 text-center bg-radial-[at_25%_25%] from-[#3C4CDB] to-[#360083] to-75%">
+            <h1 class="text-2xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-shadow-lg"> MADE WITH ❤️ BY </h1>
+            <div class="flex flex-col md:flex-row mt-5 lg:mt-20 justify-around items-center">
+                <img src="{{ url_for('static', filename='images/fotoDaniele.png') }}" alt="Daniele Susino Pro Pic" class="h-32 w-32 sm:w-42 sm:h-42 md:h-52 md:w-52 md:mr-10 lg:mr-0 lg:h-96 lg:w-96 rounded-full shadow-2xl hover:scale-110 transition-all duration-200">
+                <div class="flex flex-col gap-5 md:gap-10 w-full lg:w-2/5 mt-5 md:mt-0 ">
+                    <h1 class="text-2xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-shadow-lg w-full"> Daniele Orazio Susino </h1>
+                    <div class="flex flex-col items-center gap-5 w-full text-lg md:text-2xl">
+                        <a href="https://www.linkedin.com/in/susinodaniele/" class="bg-white-vivere hover:bg-gray-300 active:bg-gray-400 rounded-full w-4/5 lg:w-full px-5 lg:px-10 py-1.5 lg:py-3 text-black-vivere shadow-2xl hover:scale-110 transition-all duration-200 cursor-pointer ease-in-out"> <i class="fa-brands fa-linkedin"></i> Linkedin </a>
+                        <a href="https://www.instagram.com/daniele.susino/" class="bg-white-vivere hover:bg-gray-300 active:bg-gray-400 rounded-full w-4/5 lg:w-full px-5 lg:px-10 py-1.5 lg:py-3 text-black-vivere shadow-2xl hover:scale-110 transition-all duration-200 cursor-pointer ease-in-out"> <i class="fa-brands fa-instagram-square"></i> Instagram </a>
                     </div>
                 </div> 
 
@@ -120,10 +131,9 @@
             
         </section>
 
-        <footer class=" px-5 py-2 fixed bottom-0 text-white-vivere flex flex-row justify-between w-screen">
-            <p> © Vivere Ingegneria 2025 - <a href="#Credits" class="hover:brightness-75 active:brightness-50 transition-all duration-200">Daniele Orazio Susino </a> </p>
-            <p> Credits prima versione - <a href="https://www.linkedin.com/in/giuseppe-g/" class="hover:brightness-75 active:brightness-50 transition-all duration-200"> Ganci Dev </a> & <a href="https://www.instagram.com/ashenclock_/" class="hover:brightness-75 active:brightness-50 transition-all duration-200"> Ashenclock </a> </p>
-            
+        <footer class="px-2 md:px-5 py-1 md:py-2 fixed bottom-0 text-white-vivere flex flex-row justify-between w-screen z-50 text-xs md:text-base">
+            <p> © Vivere Ingegneria 2025 <a href="#Credits" class="hover:brightness-75 active:brightness-50 transition-all duration-200 invisible lg:visible"> - Daniele Orazio Susino </a> </p>
+            <p> Credits <a href="https://www.linkedin.com/in/giuseppe-g/" class="hover:brightness-75 active:brightness-50 transition-all duration-200"> Ganci Dev </a> & <a href="https://www.instagram.com/ashenclock_/" class="hover:brightness-75 active:brightness-50 transition-all duration-200"> Ashenclock </a> </p>
         </footer>
 
     </body>
@@ -151,6 +161,139 @@
 
         .remove-button:active {
             filter: brightness(50%); /* Riduce ulteriormente la luminosità al 50% quando il pulsante è attivo (cliccato) */
+        }
+
+        /*********** Baseline, reset styles ***********/
+        input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            background: transparent;
+            cursor: pointer;
+            width: 20rem;
+        }
+
+        /* Removes default focus */
+        input[type="range"]:focus {
+            outline: none;
+        }
+
+        /******** Chrome, Safari, Opera and Edge Chromium styles ********/
+        /* slider track */
+        input[type="range"]::-webkit-slider-runnable-track {
+            background-color: #f0f0f0;
+            border-radius: 3rem;
+            height: 0.5rem;
+        }
+
+        /* slider thumb */
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none; /* Override default look */
+            appearance: none;
+            margin-top: -4px; /* Centers thumb on the track */
+            background-color: #3C4CDB;
+            border-radius: 100%;
+            height: 1rem;
+            width: 1rem;
+        }
+
+        input[type="range"]:focus::-webkit-slider-thumb {
+            outline: 3px solid #3C4CDB;
+            outline-offset: 0.125rem;
+        }
+
+        /*********** Firefox styles ***********/
+        /* slider track */
+        input[type="range"]::-moz-range-track {
+            background-color: #f0f0f0;
+            border-radius: 3rem;
+            height: 1rem;
+        }
+
+        /* slider thumb */
+        input[type="range"]::-moz-range-thumb {
+            background-color: #3C4CDB;
+            border: none; /*Removes extra border that FF applies*/
+            border-radius: 100%;
+            height: 2rem;
+            width: 2rem;
+        }
+
+        input[type="range"]:focus::-moz-range-thumb{
+            outline: 3px solid #3C4CDB;
+            outline-offset: 0.125rem;
+        }
+
+        .checkbox-wrapper-6 .tgl {
+            display: none;
+        }
+        .checkbox-wrapper-6 .tgl,
+        .checkbox-wrapper-6 .tgl:after,
+        .checkbox-wrapper-6 .tgl:before,
+        .checkbox-wrapper-6 .tgl *,
+        .checkbox-wrapper-6 .tgl *:after,
+        .checkbox-wrapper-6 .tgl *:before,
+        .checkbox-wrapper-6 .tgl + .tgl-btn {
+            box-sizing: border-box;
+        }
+        .checkbox-wrapper-6 .tgl::-moz-selection,
+        .checkbox-wrapper-6 .tgl:after::-moz-selection,
+        .checkbox-wrapper-6 .tgl:before::-moz-selection,
+        .checkbox-wrapper-6 .tgl *::-moz-selection,
+        .checkbox-wrapper-6 .tgl *:after::-moz-selection,
+        .checkbox-wrapper-6 .tgl *:before::-moz-selection,
+        .checkbox-wrapper-6 .tgl + .tgl-btn::-moz-selection,
+        .checkbox-wrapper-6 .tgl::selection,
+        .checkbox-wrapper-6 .tgl:after::selection,
+        .checkbox-wrapper-6 .tgl:before::selection,
+        .checkbox-wrapper-6 .tgl *::selection,
+        .checkbox-wrapper-6 .tgl *:after::selection,
+        .checkbox-wrapper-6 .tgl *:before::selection,
+        .checkbox-wrapper-6 .tgl + .tgl-btn::selection {
+            background: none;
+        }
+        .checkbox-wrapper-6 .tgl + .tgl-btn {
+            outline: 0;
+            display: block;
+            width: 3em;
+            height: 1.5em;
+            position: relative;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+                -ms-user-select: none;
+                    user-select: none;
+        }
+        .checkbox-wrapper-6 .tgl + .tgl-btn:after,
+        .checkbox-wrapper-6 .tgl + .tgl-btn:before {
+            position: relative;
+            display: block;
+            content: "";
+            width: 50%;
+            height: 100%;
+        }
+        .checkbox-wrapper-6 .tgl + .tgl-btn:after {
+            left: 0;
+        }
+        .checkbox-wrapper-6 .tgl + .tgl-btn:before {
+            display: none;
+        }
+        .checkbox-wrapper-6 .tgl:checked + .tgl-btn:after {
+            left: 50%;
+        }
+
+        .checkbox-wrapper-6 .tgl-light + .tgl-btn {
+            background: #f0f0f0;
+            border-radius: 2em;
+            padding: 2px;
+            transition: all 0.4s ease;
+        }
+        .checkbox-wrapper-6 .tgl-light + .tgl-btn:after {
+            border-radius: 50%;
+            background: #fff;
+            transition: all 0.2s ease;
+        }
+        .checkbox-wrapper-6 .tgl-light:checked + .tgl-btn {
+            background: #071D99;
         }
 
     </style>
