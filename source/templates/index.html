@@ -8,7 +8,7 @@
         <link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}" />
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
-        <title>Document</title>
+        <title> Vivere Filigrana </title>
     </head>
     <body class="h-screen font-montserrat text-white-vivere">
         <header class="bg-white-vivere h-20 flex flex-row justify-between items-center w-screen text-black-vivere text-base md:text-base lg:text-lg xl:text-xl">
@@ -36,79 +36,85 @@
 
 
         <!-- Form -->
-        <section id="Filigrana" class="flex flex-col h-full w-screen justify-center gap-10 items-center z-10 backdrop-blur-sm p-20 text-center bg-radial-[at_25%_25%] from-[#0DC08F] to-[#00AFB9] to-75% ">
+        <section id="Filigrana" class="flex flex-col h-full w-screen justify-center items-center z-10 backdrop-blur-sm p-3 md:p-20 text-center bg-radial-[at_25%_25%] from-[#0DC08F] to-[#00AFB9] to-75% ">
             
-            <h1 class="text-6xl font-bold text-shadow-lg"> FILIGRANA </h1>
+            <h1 class="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-shadow-lg p-2 lg:p-10"> FILIGRANA </h1>
             
             <form action="/upload" method="POST" enctype="multipart/form-data" class="w-full h-full flex flex-row items-center justify-around">
                
-                <label id="drop-zone" for="documents" class="border-4 rounded-4xl cursor-pointer border-white-vivere border-dashed w-1/2 h-4/5 flex flex-col gap-10 justify-center items-center hover:scale-105 transition-all duration-200 drop-zone">
+                <label id="drop-zone" for="documents" class="border-4 rounded-4xl cursor-pointer border-white-vivere border-dashed w-2/5 lg:w-1/2 h-4/5 hidden md:flex flex-col gap-10 justify-center items-center hover:scale-105 transition-all duration-200 drop-zone">
 
-                    <i class="text-8xl fa-solid fa-cloud-arrow-up"></i>
-                    <p class="text-2xl"> Trascina i file che vuoi filigranare </p>
-                    <p class="text-2xl"> OPPURE </p>
-                    <i class="text-8xl fa-solid fa-arrow-pointer"></i>                    
-                    <p class="text-2xl"> Clicca per selezionarli </p>
-
-                    <input type="file" required multiple name="documents" id="documents" class="hidden" accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.pdf">
-
+                    <i class="text-4xl lg:text-6xl xl:text-8xl fa-solid fa-cloud-arrow-up"></i>
+                    <p class="text-lg lg:text-xl xl:text-2xl px-2"> Trascina i file che vuoi filigranare </p>
+                    <p class="text-lg lg:text-xl xl:text-2xl"> OPPURE </p>
+                    <i class="text-4xl lg:text-6xl xl:text-8xl fa-solid fa-arrow-pointer"></i>                    
+                    <p class="text-lg lg:text-xl xl:text-2xl px-2"> Clicca per selezionarli </p>
+                    
                 </label>
 
-                <div class="flex flex-col justify-center items-center w-1/2 text-3xl">
-
-                    <div class="w-1/2 flex flex-col justify-center items-center gap-10">
-                        <ul id="preview" class="text-xl font-bold mb-10 text-left">
+                <div class="flex flex-col justify-center items-center w-full md:w-3/5 xl:w-1/2 text-base md:text-xl xl:text-3xl md:p-10">
+                    
+                    <div class="w-full xl:w-1/2 flex flex-col justify-start xl:justify-center items-center gap-10">
+                        
+                        <ul id="preview" class="text-sm xl:text-xl font-bold xl:mb-5 text-left">
                             Non hai ancora inserito nessun file da filigranare!
                         </ul>
 
-                        <div class="w-full flex flex-row justify-between items-center gap-5">
-                            <label id="opacityLabel" for="opacity" class="font-bold">Opacità: </label>
-                            <input type="range" id="opacity" name="opacity" list="markers" min="5" max="30" value="15" step="5" oninput="changeOpacity(event)">
                         
-                            <datalist id="markers">
-                                <option value="5"></option>
-                                <option value="10"></option>
-                                <option value="15"></option>
-                                <option value="20"></option>
-                                <option value="25"></option>
-                                <option value="30"></option>
-                            </datalist>
-                        
-                        </div>                    
+                        <div class="flex flex-col justify-start xl:justify-center items-center gap-10">
+                            
+                            <input type="file" required multiple name="documents" id="documents" class="md:hidden w-full bg-white-vivere text-black-vivere rounded-full p-2 cursor-pointer" placeholder="Sfogla" accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.pdf">
 
-                        <div class=" w-full flex flex-row justify-between items-center gap-5">
-                            <p class="font-bold"> Usare il logo? </p>
-                            <div class="checkbox-wrapper-6">
-                                <input type="checkbox" name="logo" id="logo" class="tgl tgl-light">
-                                <label for="logo" class="tgl-btn"></label>
+                            <div class="w-full flex flex-row justify-between items-center gap-5">
+                                <label id="opacityLabel" for="opacity" class="font-bold">Opacità: </label>
+                                <input type="range" id="opacity" name="opacity" list="markers" min="5" max="30" value="15" step="5" oninput="changeOpacity(event)" class="pl-2">
+                            
+                                <datalist id="markers">
+                                    <option value="5"></option>
+                                    <option value="10"></option>
+                                    <option value="15"></option>
+                                    <option value="20"></option>
+                                    <option value="25"></option>
+                                    <option value="30"></option>
+                                </datalist>
+                            
+                            </div>                    
+
+                            <div class=" w-full flex flex-row justify-between items-center gap-5">
+                                <p class="font-bold"> Usare il logo? </p>
+                                <div class="checkbox-wrapper-6">
+                                    <input type="checkbox" name="logo" id="logo" class="tgl tgl-light">
+                                    <label for="logo" class="tgl-btn"></label>
+                                </div>
                             </div>
-                        </div>
-                  
-                        <div class="w-full flex flex-row justify-between items-center gap-5">
-                            <label for="staff" class="font-bold"> Staff </label>
-                            <select required name="staff" id="staff">
-                                <option selected disabled> Seleziona uno staff </option>
-                                <option value="Ingegneria"> Ingegneria </option>
-                                <!-- 
-                                    QUANDO AVREMO I PDF DEGLI ALTRI STAFF, BISOGNERÀ DECOMMENTARE QUESTA PARTE QUI
-
-                                    <option value="Medicina" disabled> Medicina </option>
-                                    <option value="Formazione" disabled> Formazione </option>
-                                    <option value="Lettere" disabled> Lettere </option>
+                    
+                            <div class="w-full flex flex-row justify-between items-center gap-5">
+                                <label for="staff" class="font-bold"> Staff </label>
+                                <select required name="staff" id="staff">
+                                    <option selected disabled> Seleziona uno staff </option>
+                                    <option value="Ingegneria"> Ingegneria </option>
+                                    <option value="Formazione" disabled> Scienze della formazione </option>
                                     <option value="Architettura" disabled> Architettura </option>
+                                    <option value="Agraria" disabled> Agraria </option>
+                                    <option value="Agrigento" disabled> Agrigento </option>
                                     <option value="Muffin" disabled> Muffin </option>
-                                    <option value="Giurisprudenza" disabled> Giurisprudenza </option>
+                                    <option value="Culture-societa" disabled> Culture e società </option>
+                                    <option value="Scienze-motorie" disabled> Scienze motorie </option>
+                                    <option value="Medicina" disabled> Medicina </option>                                
+                                    <option value="Lettere" disabled> Lettere </option>
                                     <option value="Economia" disabled> Economia </option> 
-                                -->
-                                <option disabled> Coming soon... </option>
-                            </select>
-                        </div>
+                                    <option value="Giurisprudenza" disabled> Giurisprudenza </option>
+                                    <option value="Scienze-politiche" disabled> Scienze politiche </option>
+                                    <option value="Farmacia" disabled> Farmacia </option>                                
+                                </select>
+                            </div>
 
-
-                        <div class="mt-10">
-                            <input id="clear-btn" type="reset" value="Reset" class="text-2xl bg-white-vivere hover:bg-red-400 active:bg-red-600 hover:text-white-vivere active:text-white-vivere rounded-full w-full px-10 py-3 text-black-vivere shadow-2xl hover:scale-110 transition-all duration-200 cursor-pointer mb-10 ease-in-out">
-                            <button type="submit" class="text-2xl bg-white-vivere hover:bg-blu-vivere active:bg-blue-950 hover:text-white-vivere active:text-white-vivere rounded-full w-full px-10 py-3 text-black-vivere shadow-2xl hover:scale-110 transition-all duration-200 cursor-pointer ease-in-out">Filigrana</button>
+                        <div class="xl:mt-10 flex flex-row xl:flex-col items-center gap-5 w-full text-lg xl:text-2xl ">
+                            <input id="clear-btn" type="reset" value="Reset" class="bg-white-vivere hover:bg-red-400 active:bg-red-600 hover:text-white-vivere active:text-white-vivere rounded-full w-full xl:w-full py-1.5 xl:py-3 text-black-vivere shadow-2xl hover:scale-110 transition-all duration-200 cursor-pointer ease-in-out">
+                            <button type="submit" class="bg-white-vivere hover:bg-blu-vivere active:bg-blue-950 hover:text-white-vivere active:text-white-vivere rounded-full w-full lg:w-full py-1.5 xl:py-3 text-black-vivere shadow-2xl hover:scale-110 transition-all duration-200 cursor-pointer ease-in-out">Filigrana</button>
                         </div>  
+
+                        </div>
                     </div>
                 </div>
             </form>
@@ -168,8 +174,7 @@
             -webkit-appearance: none;
             appearance: none;
             background: transparent;
-            cursor: pointer;
-            width: 20rem;
+            cursor: pointer;            
         }
 
         /* Removes default focus */
