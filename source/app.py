@@ -3,8 +3,8 @@ from pdfrw import PdfReader, PdfWriter, PageMerge
 from dotenv import load_dotenv
 from livereload import Server
 import subprocess
-import os
 import zipfile
+import os
 
 # Loads ambient variables
 load_dotenv()
@@ -23,29 +23,29 @@ app.config['WATERMARK_FOLDER'] = 'static/watermarks'
 app.config['ALLOWED_EXTENSIONS'] = {'pdf', 'docx', 'doc'}
 
 # Function to verify if the file has the correct extension
-def allowed_file(filename):
+def checkAllowedFile(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
 
-# Funzione per la conversione DOCX -> PDF usando LibreOffice in modalità headless
-def convert_docx_to_pdf(input_file):
-    input_dir = os.path.dirname(input_file)
-    output_file = os.path.join(input_dir, os.path.basename(input_file).rsplit('.', 1)[0] + '.pdf')
-    subprocess.run(['libreoffice', '--headless', '--convert-to', 'pdf', '--outdir', input_dir, input_file])
-    return output_file
+# Function to convert .docx files in .pdf using headless libreoffice 
+def convertDocxToPdf(inputFile):
+    inputDir = os.path.dirname(inputFile)
+    outputFile = os.path.join(inputDir, os.path.basename(inputFile).rsplit('.', 1)[0] + '.pdf')
+    subprocess.run(['libreoffice', '--headless', '--convert-to', 'pdf', '--outdir', inputDir, inputFile])
+    return outputFile
 
 # Function to apply the watermark to the file (from official repo https://github.com/pmaupin/pdfrw/blob/master/examples/fancy_watermark.py)
-def add_watermark_pdf(input_file, output_file, watermark_file):
+def addWatermarkToPdf(inputFile, outputFile, watermarkFile):
  
     # Open both the source files
-        wmark_trailer = PdfReader(watermark_file)
-        trailer = PdfReader(input_file)
+        watermarkTrailer = PdfReader(watermarkFile)
+        trailer = PdfReader(inputFile)
 
         # Handle different sized pages in same document with
         # a memoization cache, so we don't create more watermark
         # objects than we need to (typically only one per document).
 
-        wmark_page = wmark_trailer.pages[0]
-        wmark_cache = {}
+        watermarkPage = watermarkTrailer.pages[0]
+        watermarkCache = {}
 
         # Process every page
         for pagenum, page in enumerate(trailer.pages, 1):
@@ -55,11 +55,11 @@ def add_watermark_pdf(input_file, output_file, watermark_file):
             mbox = tuple(float(x) for x in page.MediaBox)
             odd = pagenum & 1
             key = mbox, odd
-            wmark = wmark_cache.get(key)
+            wmark = watermarkCache.get(key)
             if wmark is None:
 
                 # Create and cache a new watermark object.
-                wmark = wmark_cache[key] = PageMerge().add(wmark_page)[0]
+                wmark = watermarkCache[key] = PageMerge().add(watermarkPage)[0]
 
                 # The math is more complete than it probably needs to be,
                 # because the origin of all pages is almost always (0, 0).
@@ -87,13 +87,13 @@ def add_watermark_pdf(input_file, output_file, watermark_file):
                 # Optimize the case where the watermark is same width
                 # as page.
                 if page_w == wmark.w:
-                    wmark_cache[mbox, not odd] = wmark
+                    watermarkCache[mbox, not odd] = wmark
 
             # Add the watermark to the page
             PageMerge(page).add(wmark, prepend=False).render()
 
         # Write out the destination file
-        PdfWriter(output_file, trailer=trailer).write()
+        PdfWriter(outputFile, trailer=trailer).write()
 
 @app.route("/")
 def index():
@@ -101,90 +101,114 @@ def index():
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
+
+    # If there aren't documents in the request, redirect to the index page
     if 'documents' not in request.files:
         return redirect(request.url)
     
     files = request.files.getlist('documents')
     
-    if not files or any(file is None or not allowed_file(file.filename) for file in files):
+    # If the files are not in the valid formats, return an error
+    if not files or any(file is None or not checkAllowedFile(file.filename) for file in files):
         return "File non valido", 400
 
+    # Try to parse the opacity value, set standard at 15
     try:
         opacity = int(request.form["opacity"])
-    except (ValueError, TypeError):
-        # Se il valore non è valido (non numerico o non presente), assegna un valore di default
-        opacity = 5
+    except (ValueError, TypeError):        
+        opacity = 15
 
+    # Set the opacity value in the correct range
+    if opacity < 0 or opacity > 30:
+        opacity = 15  # if it's not in the correct range, set to 15 at default
+
+    # Try to parse the staff value, set standard to "Ingegneria"
     try:
         staff = request.form["staff"]
     except (ValueError, TypeError):
         staff = "Ingegneria"
 
-    # Assicurati che opacity sia nel range accettabile
-    if opacity < 0 or opacity > 30:
-        opacity = 5  # valore di default se non è valido
-
+    # Check if the logo checkbox has been selected
     logo = "logo" in request.form
 
-    # Ciclo sui file per salvarli, convertirli e applicare la filigrana
-    output_files = []
+    # All the files which will be sent to the user
+    outputFiles = []
 
+    # Foreach file, save it, convert it, apply watermark, send it and then delete it
     for file in files:
 
         filename = file.filename
         filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
 
+        # Save the file in the upload folder
         file.save(filepath)
 
-        output_file = os.path.join(app.config['UPLOAD_FOLDER'], f'watermarked_{os.path.splitext(filename)[0]}.pdf')
-        filigrana_path = os.path.join(app.config['WATERMARK_FOLDER'], staff,f'fil_{opacity}{'_logo' if logo else ''}_ver.pdf')
+        # Set the outputFile path as a combination of the upload folder, the name of the file and the pdf extension
+        outputFile = os.path.join(app.config['UPLOAD_FOLDER'], f'watermarked_{os.path.splitext(filename)[0]}.pdf')
 
-        if not os.path.exists(filigrana_path):
+        # Set the watermarkPath as a combination of the watermarks folder, the staff, the opacity and the presence or absence of the logo, at last the pdf extension
+        filigranaPath = os.path.join(app.config['WATERMARK_FOLDER'], staff,f'fil_{opacity}{'_logo' if logo else ''}_ver.pdf')
+
+        # If the watermark wasn't found, throw an error
+        if not os.path.exists(filigranaPath):
             return "Watermark non trovato", 404
 
+        # Check if the file is a .docx file
         if filename.lower().endswith('.docx'):
-            # Converti il DOCX in PDF prima di applicare il watermark
-            converted_pdf_path = convert_docx_to_pdf(filepath)
+            # If so, convert it to pdf
+            convertedPdfPath = convertDocxToPdf(filepath)
 
-            # Dopo la conversione, rimuovi il file DOCX
+            # After converting, we've got the .pdf file path, so we can remove the .docx file
             os.remove(filepath)
-            filepath = converted_pdf_path
+            filepath = convertedPdfPath
 
-        add_watermark_pdf(filepath, output_file, filigrana_path)
+        # Now, apply the watermark to the .pdf file 
+        addWatermarkToPdf(filepath, outputFile, filigranaPath)
         
-        # Aggiungi il file con la filigrana alla lista di output
-        output_files.append(output_file)
+        # Add the watermarked file in the outputFiles array
+        outputFiles.append(outputFile)
 
-        # Cancellazione dei file temporanei
+        # Remove the not watermarked pdf of the file
         if os.path.exists(filepath):
-            os.remove(filepath)  # Rimuove il file caricato
+            os.remove(filepath)
         
-    zip_output = ""
+    # Prepare the zip output path in case we need it later (if there are more than 1 file)
+    zipOutput = ""
 
-    if len(output_files) == 1:
+    # If we've got only 1 file
+    if len(outputFiles) == 1:
         try:
-            # Restituisci i file con la filigrana per il download
-            return send_file(output_files[0], as_attachment=True)
+            # Return the watermarked file as an attachment
+            return send_file(outputFiles[0], as_attachment=True)
         finally:
-            if os.path.exists(output_files[0]):
-                os.remove(output_files[0])
+            # When the watermarked file is returned, remove it from disk
+            if os.path.exists(outputFiles[0]):
+                os.remove(outputFiles[0])
 
+    # Otherwise, if we've got more than 1 file
     try:
-        zip_output = os.path.join(app.config['UPLOAD_FOLDER'], 'watermarked_files.zip')
-        with zipfile.ZipFile(zip_output, 'w') as zipf:
-            for file in output_files:
+
+        # Prapare the zip path as the upload folder and a generic zip name
+        zipOutput = os.path.join(app.config['UPLOAD_FOLDER'], 'File filigranati.zip')
+
+        # Open the zip path
+        with zipfile.ZipFile(zipOutput, 'w') as zipf:
+            # Foreach file, zip it in the same archive
+            for file in outputFiles:
                 zipf.write(file, os.path.basename(file))
         
-        # Rimuovi i file temporanei
-        for file in output_files:
+        # Remove the files from the outputFiles array
+        for file in outputFiles:
             if os.path.exists(file):
                 os.remove(file)
 
-        return send_file(zip_output, as_attachment=True)
+        # Send the zip file as an attachment
+        return send_file(zipOutput, as_attachment=True)
     
     finally:
-        if os.path.exists(zip_output):
-            os.remove(zip_output)
+        # When the watermarked zip file is returned, remove it from disk
+        if os.path.exists(zipOutput):
+            os.remove(zipOutput)
 
 # Set Livereload service
 if __name__ == '__main__':
