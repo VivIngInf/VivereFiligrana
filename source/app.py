@@ -115,6 +115,11 @@ def upload_file():
         # Se il valore non è valido (non numerico o non presente), assegna un valore di default
         opacity = 5
 
+    try:
+        staff = request.form["staff"]
+    except (ValueError, TypeError):
+        staff = "Ingegneria"
+
     # Assicurati che opacity sia nel range accettabile
     if opacity < 0 or opacity > 30:
         opacity = 5  # valore di default se non è valido
@@ -132,7 +137,7 @@ def upload_file():
         file.save(filepath)
 
         output_file = os.path.join(app.config['UPLOAD_FOLDER'], f'watermarked_{os.path.splitext(filename)[0]}.pdf')
-        filigrana_path = os.path.join(app.config['WATERMARK_FOLDER'], f'fil_{opacity}{'_logo' if logo else ''}_ver.pdf')
+        filigrana_path = os.path.join(app.config['WATERMARK_FOLDER'], staff,f'fil_{opacity}{'_logo' if logo else ''}_ver.pdf')
 
         if not os.path.exists(filigrana_path):
             return "Watermark non trovato", 404
