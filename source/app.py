@@ -147,7 +147,8 @@ def upload_file():
         outputFile = os.path.join(app.config['UPLOAD_FOLDER'], f'watermarked_{os.path.splitext(filename)[0]}.pdf')
 
         # Set the watermarkPath as a combination of the watermarks folder, the staff, the opacity and the presence or absence of the logo, at last the pdf extension
-        filigranaPath = os.path.join(app.config['WATERMARK_FOLDER'], staff,f'fil_{opacity}{'_logo' if logo else ''}_ver.pdf')
+        logoString = '_logo' if logo else ''
+        filigranaPath = os.path.join(app.config['WATERMARK_FOLDER'], staff,f'fil_{opacity}{logoString}_ver.pdf')
 
         # If the watermark wasn't found, throw an error
         if not os.path.exists(filigranaPath):
