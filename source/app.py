@@ -18,8 +18,8 @@ app = Flask(__name__)
 app.debug = debugMode
 
 # Configs for file upload
-app.config['UPLOAD_FOLDER'] = 'static/uploads'
-app.config['WATERMARK_FOLDER'] = 'static/watermarks'
+app.config['UPLOAD_FOLDER'] = './static/uploads'
+app.config['WATERMARK_FOLDER'] = './static/watermarks'
 app.config['ALLOWED_EXTENSIONS'] = {'pdf', 'docx', 'doc'}
 
 # Function to verify if the file has the correct extension
