@@ -105,6 +105,8 @@ But was originally developed by:
 - [GanciDev](https://www.linkedin.com/in/giuseppe-g/)
 - [Ashenclock](https://www.instagram.com/ashenclock_/)
 
+Many thanks to [Giovanni Luca Cusano](https://www.linkedin.com/in/giovanni-luca-cusano/) for creating the watermarks.
+
 ## License
 
 This project is licensed under the GNU AGPL v3 license - see the [LICENSE](LICENSE) file for details.

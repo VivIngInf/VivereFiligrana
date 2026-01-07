@@ -105,6 +105,9 @@ Ma originariamente era stato sviluppato da:
 - [GanciDev](https://www.linkedin.com/in/giuseppe-g/)
 - [Ashenclock](https://www.instagram.com/ashenclock_/)
 
+Si ringrazia [Giovanni Luca Cusano](https://www.linkedin.com/in/giovanni-luca-cusano/) per aver provvisto alla creazione dei watermark.
+
+
 ## Licenza
 
 Questo progetto è rilasciato sotto la licenza **GNU AGPL v3** - vedi il file [LICENSE](../../LICENSE) per i dettagli.
