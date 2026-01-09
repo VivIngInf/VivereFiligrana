@@ -392,7 +392,7 @@
             // Rimuovi il file dall'input file
             const inputFiles = [...fileInput.files];
             const updatedFiles = inputFiles.filter(f => f !== file);
-            
+
             // Costruisci un nuovo FileList senza il file rimosso
             const dataTransfer = new DataTransfer();
             updatedFiles.forEach(f => dataTransfer.items.add(f));
@@ -411,10 +411,26 @@
         // Funzione per gestire il drop dei file
         function dropHandler(ev) {
             ev.preventDefault();
+
+            // Ottieni i file dal drag-and-drop
             const files = [...ev.dataTransfer.items]
                 .map(item => item.getAsFile())
                 .filter(file => file && (file.name.endsWith('.pdf') || file.name.endsWith('.docx')));
+
+            // Mostra i file nell'anteprima
             displayFiles(files);
+
+            // Aggiungi i file all'input file
+            const dataTransfer = new DataTransfer();
+            for (let file of files) {
+                dataTransfer.items.add(file); // Aggiungi i file al DataTransfer
+            }
+
+            // Riassegna i file all'input, così il browser li riconosce come selezionati
+            fileInput.files = dataTransfer.files;
+
+            // Simula il click sull'input file (facoltativo, se vuoi che l'utente possa anche cliccare per aggiungere file)
+            fileInput.click();
         }
 
         // Funzione per gestire il caricamento dei file via input

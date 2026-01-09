@@ -199,9 +199,6 @@
   }
 }
 @layer utilities {
-  .invisible {
-    visibility: hidden;
-  }
   .absolute {
     position: absolute;
   }
@@ -291,9 +288,6 @@
   }
   .w-32 {
     width: calc(var(--spacing) * 32);
-  }
-  .w-fit {
-    width: fit-content;
   }
   .w-full {
     width: 100%;
@@ -431,9 +425,6 @@
   }
   .text-left {
     text-align: left;
-  }
-  .text-right {
-    text-align: right;
   }
   .font-montserrat {
     font-family: var(--font-montserrat);
@@ -629,6 +620,11 @@
       width: calc(var(--spacing) * 42);
     }
   }
+  .md\:invisible {
+    @media (width >= 48rem) {
+      visibility: hidden;
+    }
+  }
   .md\:mx-5 {
     @media (width >= 48rem) {
       margin-inline: calc(var(--spacing) * 5);
@@ -714,21 +710,6 @@
       padding-block: calc(var(--spacing) * 2);
     }
   }
-  .md\:pl-1 {
-    @media (width >= 48rem) {
-      padding-left: calc(var(--spacing) * 1);
-    }
-  }
-  .md\:pl-2 {
-    @media (width >= 48rem) {
-      padding-left: calc(var(--spacing) * 2);
-    }
-  }
-  .md\:pl-10 {
-    @media (width >= 48rem) {
-      padding-left: calc(var(--spacing) * 10);
-    }
-  }
   .md\:text-2xl {
     @media (width >= 48rem) {
       font-size: var(--text-2xl);
@@ -751,11 +732,6 @@
     @media (width >= 48rem) {
       font-size: var(--text-xl);
       line-height: var(--tw-leading, var(--text-xl--line-height));
-    }
-  }
-  .lg\:visible {
-    @media (width >= 64rem) {
-      visibility: visible;
     }
   }
   .lg\:mt-20 {
