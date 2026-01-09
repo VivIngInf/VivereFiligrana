@@ -55,7 +55,7 @@
                     
                     <div class="w-full xl:w-1/2 flex flex-col justify-start xl:justify-center items-center gap-10">
                         
-                        <ul id="preview" class="text-sm xl:text-xl font-bold xl:mb-5 text-left">
+                        <ul id="preview" class="text-sm xl:text-xl font-bold xl:mb-5 text-center w-full flex flex-col items-center">
                             Non hai ancora inserito nessun file da filigranare!
                         </ul>
 
@@ -349,12 +349,20 @@
             // Mostra i file nella lista
             preview.innerHTML = ""; // Pulisce l'anteprima prima di aggiungere i nuovi file
 
-            for (const file of files) {
+            for (const file of files) 
+            {
                 const li = document.createElement("li");
-                li.classList.add('file-item');
+
+                li.classList.add('flex');
                 li.setAttribute('data-filename', file.name); // Impostiamo il nome del file come dato per il li
 
-                const fileName = document.createTextNode(file.name);
+                // Tronchiamo il nome del file a 20 caratteri ed aggiungiamo i puntini, per una questione di migliore visualizzazione
+                let truncatedName = file.name;
+                
+                if (file.name.length > 20)
+                    truncatedName = file.name.slice(0, 20) + "...";
+
+                const fileName = document.createTextNode(truncatedName);
                 li.appendChild(fileName);
                 
                 // Aggiungiamo un'icona per il tipo di file
