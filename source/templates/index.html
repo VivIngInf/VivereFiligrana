@@ -114,24 +114,24 @@
                     
                             <div class="w-full flex flex-row justify-between items-center gap-5">
                                 <label for="staff" class="font-bold"> Staff </label>
-                                <select required name="staff" id="staff">
-                                    <option selected disabled value=""> Seleziona uno staff </option>
-                                    <option value="Agraria"> Agraria </option>
-                                    <option value="Agrigento"> Agrigento </option>
-                                    <option value="Architettura"> Architettura </option>
-                                    <option value="Ateneo"> Ateneo </option>
-                                    <option value="Bagheria"> Bagheria </option>
-                                    <option value="Culture"> Culture e società </option>
-                                    <option value="Economia"> Economia </option> 
-                                    <option value="Farmacia"> Farmacia </option>           
-                                    <option value="Formazione"> Scienze della formazione </option>
-                                    <option value="Giurisprudenza"> Giurisprudenza </option>
-                                    <option value="Ingegneria"> Ingegneria </option>
-                                    <option value="Lettere"> Lettere </option>
-                                    <option value="Medicina"> Medicina </option>                                
-                                    <option value="Motorie"> Scienze motorie </option>
-                                    <option value="Muffin"> Muffin </option>
-                                    <option value="Politiche"> Scienze politiche </option>
+                                <select required name="staff" id="staff" class="">
+                                    <option class="text-black" selected disabled value=""> Seleziona uno staff </option>
+                                    <option class="text-black" value="Agraria"> Agraria </option>
+                                    <option class="text-black" value="Agrigento"> Agrigento </option>
+                                    <option class="text-black" value="Architettura"> Architettura </option>
+                                    <option class="text-black" value="Ateneo"> Ateneo </option>
+                                    <option class="text-black" value="Bagheria"> Bagheria </option>
+                                    <option class="text-black" value="Culture"> Culture e società </option>
+                                    <option class="text-black" value="Economia"> Economia </option> 
+                                    <option class="text-black" value="Farmacia"> Farmacia </option>           
+                                    <option class="text-black" value="Formazione"> Scienze della formazione </option>
+                                    <option class="text-black" value="Giurisprudenza"> Giurisprudenza </option>
+                                    <option class="text-black" value="Ingegneria"> Ingegneria </option>
+                                    <option class="text-black" value="Lettere"> Lettere </option>
+                                    <option class="text-black" value="Medicina"> Medicina </option>                                
+                                    <option class="text-black" value="Muffin"> Muffin </option>
+                                    <option class="text-black" value="Motorie"> Scienze motorie </option>
+                                    <option class="text-black" value="Politiche"> Scienze politiche </option>
                                 </select>
                             </div>
 
@@ -196,7 +196,8 @@
 
     </body>
 
-    <style>
+    <style>        
+
         .bgimage{
             background-image: url({{url_for('static', filename='images/background.jpg')}});
         }
