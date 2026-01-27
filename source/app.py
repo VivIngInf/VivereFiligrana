@@ -1,10 +1,11 @@
-from flask import Flask, render_template, request, send_file, redirect
+from flask import Flask, render_template, request, send_file, redirect, url_for, abort
 from pdfrw import PdfReader, PdfWriter, PageMerge
 from dotenv import load_dotenv
 from livereload import Server
 import subprocess
 import zipfile
 import os
+from werkzeug.utils import secure_filename
 
 # Loads ambient variables
 load_dotenv()
@@ -21,6 +22,10 @@ app.debug = debugMode
 app.config['UPLOAD_FOLDER'] = './static/uploads'
 app.config['WATERMARK_FOLDER'] = './static/watermarks'
 app.config['ALLOWED_EXTENSIONS'] = {'pdf', 'docx', 'doc'}
+
+def handle_error(title, message, code=400):
+    app.logger.error(message)
+    return render_template("error.html", title=title, message=message), code
 
 # Function to verify if the file has the correct extension
 def checkAllowedFile(filename):
@@ -99,18 +104,30 @@ def addWatermarkToPdf(inputFile, outputFile, watermarkFile):
 def index():
     return render_template("index.html")
 
+@app.errorhandler(404)
+def page_not_found(e):
+    app.logger.error(str(e))
+    return render_template("404.html"), 404
+
+@app.errorhandler(500)
+def internal_error(e):
+    app.logger.error(str(e))
+    return render_template("500.html"), 500
+
 @app.route('/upload', methods=['POST'])
 def upload_file():
 
     # If there aren't documents in the request, redirect to the index page
     if 'documents' not in request.files:
-        return redirect(request.url)
+        return redirect(url_for('index'))
     
     files = request.files.getlist('documents')
     
     # If the files are not in the valid formats, return an error
     if not files or any(file is None or not checkAllowedFile(file.filename) for file in files):
-        return "File non valido", 400
+        app.logger.error(str("File non valido"))      
+        abort(400)
+
 
     # Try to parse the opacity value, set standard at 15
     try:
@@ -122,11 +139,11 @@ def upload_file():
     if opacity < 0 or opacity > 30:
         opacity = 15  # if it's not in the correct range, set to 15 at default
 
-    # Try to parse the staff value, set standard to "Ingegneria"
+    # Try to parse the staff value, set standard to "Ateneo"
     try:
         staff = request.form["staff"]
     except (ValueError, TypeError):
-        staff = "Ingegneria"
+        staff = "Ateneo"
 
     # Check if the logo checkbox has been selected
     logo = "logo" in request.form
@@ -137,7 +154,7 @@ def upload_file():
     # Foreach file, save it, convert it, apply watermark, send it and then delete it
     for file in files:
 
-        filename = file.filename
+        filename = secure_filename(file.filename)
         filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
 
         # Save the file in the upload folder
@@ -152,7 +169,9 @@ def upload_file():
 
         # If the watermark wasn't found, throw an error
         if not os.path.exists(filigranaPath):
-            return "Watermark non trovato", 404
+            app.logger.error(str("Filigrana non trovata"))        
+            abort(500)
+                                  
 
         # Check if the file is a .docx file
         if filename.lower().endswith('.docx'):

@@ -1,3 +1,5 @@
+{% import "credit.html" as credit %}
+
 <!DOCTYPE html>
 <html lang="it" class="scroll-smooth">
     <head>
@@ -8,12 +10,35 @@
         <link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}" />
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
-        <title> Vivere Filigrana </title>
+        <title> Vivere Filigrana | Filigrane PDF e Word</title>
+
+        <!-- SEO Optimization -->
+
+        <meta name="description" content="Vivere Filigrana è un' utility per applicare filigrane a PDF e Word usando i loghi ufficiali di Vivere Ateneo e dei suoi staff.">
+        <meta name="keywords" content="filigrana pdf, filigrana word, watermark pdf, watermark word, vivere ateneo, utility pdf, vivere">
+        <meta name="author" content="Daniele Orazio Susino, Giovanni Luca Cusano, Gabriele Amantia">
+        <link rel="canonical" href="https://filigrana.vivereateneo.com/">
+        <meta http-equiv="Content-Language" content="it">
+        <meta property="og:site_name" content="Vivere Ateneo">
+        <meta name="application-name" content="Vivere Filigrana">
+        <meta name="referrer" content="strict-origin-when-cross-origin">
+        <meta name="format-detection" content="telephone=no">
+
+        <meta property="og:title" content="Vivere Filigrana – Filigrane PDF e Word">
+        <meta property="og:description" content="Utility per applicare filigrane a PDF e Word con i loghi ufficiali Vivere Ateneo.">
+        
+        <!-- To set when the project is finished -->
+        <!-- <meta property="og:image" content="https://filigrana.vivereateneo.com/static/images/preview.png"> -->
+        
+        <meta property="og:url" content="https://filigrana.vivereateneo.com/">
+        <meta property="og:type" content="website">
     </head>
     <body class="h-screen font-montserrat text-white-vivere">
         <header class="bg-white-vivere h-20 flex flex-row justify-between items-center w-screen text-black-vivere text-base md:text-base lg:text-lg xl:text-xl">
             <div class="flex flex-row justify-start items-center w-full">
-                <img src="{{ url_for('static', filename='images/vivereLogo.png') }}" alt="" class="w-10 h-10 lg:w-16 lg:h-16 mx-2.5 my-1 md:mx-5 md:my-2">
+                <a href="{{ url_for('index') }}">
+                    <img src="{{ url_for('static', filename='images/vivereLogo.png') }}" alt="Logo Vivere Filigrana" class="w-10 h-10 lg:w-16 lg:h-16 mx-2.5 my-1 md:mx-5 md:my-2">
+                </a>                
                 <h1 class="font-semibold hidden sm:block"> Vivere Filigrana </h1>
             </div>        
             <nav class="flex flex-row justify-end items-center mx-2.5 md:mx-5 my-2 w-full gap-2 md:gap-5">
@@ -28,18 +53,18 @@
         
         <!-- Introduction -->
         <section id="Introduction" class="flex flex-col h-full w-screen justify-center gap-10 items-center z-10 backdrop-blur-sm p-5 md:p-20 text-center">
-            <h1 class="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-shadow-lg"> VIVERE FILIGRANA </h1>
+            <h2 class="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-shadow-lg"> VIVERE FILIGRANA </h1>
             <p class="text-xl md:text-2xl lg:text-3xl text-shadow-lg w-4/5 md:w-2/3"> 
-                Vivere Filigrana è un'utility per applicare filigrane personalizzate su PDF e Word, utilizzando i marchi ufficiali dell'associazione Vivere Ateneo e dei suoi staff. <br>
+                Vivere Filigrana è un'utility per applicare filigrane su PDF e Word, utilizzando i loghi ufficiali dell'associazione Vivere Ateneo e dei suoi staff. <br>
             </p>
         </section>
 
         <!-- Form -->
-        <section id="Filigrana" class="flex flex-col h-full w-screen justify-center items-center z-10 backdrop-blur-sm p-3 md:p-20 text-center bg-radial-[at_25%_25%] from-[#0DC08F] to-[#00AFB9] to-75% ">
+        <section id="Filigrana" class="flex flex-col h-full w-screen justify-center items-center  z-10 backdrop-blur-sm p-3 md:p-20 text-center bg-radial-[at_25%_25%] from-[#0DC08F] to-[#00AFB9] to-75% ">
             
             <h1 class="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-shadow-lg p-2 lg:p-10"> FILIGRANA </h1>
             
-            <form action="/upload" method="POST" enctype="multipart/form-data" class="w-full h-full flex flex-row items-center justify-around">
+            <form action="/upload" id="filigrana-form" method="POST" enctype="multipart/form-data" class="w-full h-fit pt-2 md:pt-20 flex flex-row items-center justify-around">
                
                 <label id="drop-zone" for="documents" class="border-4 rounded-4xl cursor-pointer border-white-vivere border-dashed w-2/5 lg:w-1/2 h-4/5 hidden md:flex flex-col gap-10 justify-center items-center hover:scale-105 transition-all duration-200 drop-zone">
 
@@ -51,11 +76,11 @@
                     
                 </label>
 
-                <div class="flex flex-col justify-center items-center w-full md:w-3/5 xl:w-1/2 text-base md:text-xl xl:text-3xl md:p-10">
+                <div class="flex flex-col justify-center items-center w-full md:w-3/5 xl:w-1/2 text-base md:text-xl 2xl:text-3xl md:p-10">
                     
                     <div class="w-full xl:w-1/2 flex flex-col justify-start xl:justify-center items-center gap-10">
                         
-                        <ul id="preview" class="text-sm xl:text-xl font-bold xl:mb-5 text-center w-full flex flex-col items-center">
+                        <ul id="preview" class="text-sm xl:text-xl font-bold xl:mb-5 text-center flex flex-col items-center overflow-x-hidden overflow-y-scroll w-fit px-2">
                             Non hai ancora inserito nessun file da filigranare!
                         </ul>
 
@@ -122,33 +147,51 @@
         </section>
 
         <!-- Made by -->
-        <section id="Credits" class="flex flex-col h-full w-screen justify-center md:gap-10 items-center z-10 backdrop-blur-sm p-10 md:p-20 text-center bg-radial-[at_25%_25%] from-[#3C4CDB] to-[#360083] to-75%">
-            <h1 class="text-2xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-shadow-lg"> MADE WITH ❤️ BY </h1>
-            <div class="flex flex-col md:flex-row mt-5 lg:mt-20 justify-around items-center">
-                <img src="{{ url_for('static', filename='images/fotoDaniele.png') }}" alt="Daniele Susino Pro Pic" class="h-32 w-32 sm:w-42 sm:h-42 md:h-52 md:w-52 md:mr-10 lg:mr-0 lg:h-96 lg:w-96 rounded-full shadow-2xl hover:scale-110 transition-all duration-200">
-                <div class="flex flex-col gap-5 md:gap-10 w-full lg:w-2/5 mt-5 md:mt-0 ">
-                    <h1 class="text-2xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-shadow-lg w-full"> Daniele Orazio Susino </h1>
-                    <div class="flex flex-col items-center gap-5 w-full text-lg md:text-2xl">
-                        <a href="https://www.linkedin.com/in/susinodaniele/" class="bg-white-vivere hover:bg-gray-300 active:bg-gray-400 rounded-full w-4/5 lg:w-full px-5 lg:px-10 py-1.5 lg:py-3 text-black-vivere shadow-2xl hover:scale-110 transition-all duration-200 cursor-pointer ease-in-out"> <i class="fa-brands fa-linkedin"></i> Linkedin </a>
-                        <a href="https://www.instagram.com/daniele.susino/" class="bg-white-vivere hover:bg-gray-300 active:bg-gray-400 rounded-full w-4/5 lg:w-full px-5 lg:px-10 py-1.5 lg:py-3 text-black-vivere shadow-2xl hover:scale-110 transition-all duration-200 cursor-pointer ease-in-out"> <i class="fa-brands fa-instagram-square"></i> Instagram </a>
-                    </div>
-                </div> 
+        <section id="Credits" class="flex gap-5 flex-col h-full w-screen justify-center items-center z-10 backdrop-blur-sm text-center bg-radial-[at_25%_25%] from-[#3C4CDB] to-[#360083] to-75%">
+            <h3 class="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-shadow-lg p-2 lg:p-10"> MADE WITH ❤️ BY </h1>
+                                        
+                <div class=" flex flex-row justify-around  w-screen p-2 lg:p-5  2xl:p-20 flex-wrap gap-y-5">
 
-            </div>
-            
+                    {{ credit.credit_card(
+                        image_url=url_for('static', filename='images/Daniele_Orazio_Susino.png'),
+                        name="Daniele Orazio Susino",
+                        role="Developer",
+                        website_url = "https://susino.dev",
+                        linkedin_url="https://www.linkedin.com/in/susinodaniele/",
+                        instagram_url="https://www.instagram.com/daniele.susino/"
+                    ) }}
+
+                    {{ credit.credit_card(
+                        image_url=url_for('static', filename='images/Giovanni_Luca_Cusano.jpeg'),
+                        name="Giovanni Luca Cusano",
+                        role="Watermark Designer (Scritte)",                    
+                        linkedin_url="https://www.linkedin.com/in/susinodaniele/",
+                        instagram_url="https://www.instagram.com/daniele.susino/"
+                    ) }}
+
+                    {{ credit.credit_card(
+                        image_url=url_for('static', filename='images/Gabriele_Amantia.png'),
+                        name="Gabriele Amantia",
+                        role="Watermark Designer (Loghi)",                    
+                        linkedin_url="https://www.linkedin.com/in/susinodaniele/",
+                        instagram_url="https://www.instagram.com/daniele.susino/"
+                    ) }}
+                    
+
+                </div>                                        
+
         </section>
 
         <footer class="px-2 md:px-5 py-1 md:py-2 fixed bottom-0 text-white-vivere flex flex-row justify-between w-screen z-50 text-xs md:text-base">
             <p class="flex flex-col lg:flex-row"> 
-                © Vivere Ingegneria 2025 
-                <a href="#Credits" class="hover:brightness-75 active:brightness-50 transition-all duration-200 lg:pl-1"> - Daniele Orazio Susino </a> 
-                <a class="hover:brightness-75 active:brightness-50 transition-all duration-200 lg:pl-1" href="https://www.linkedin.com/in/giovanni-luca-cusano/"> - Giovanni Luca Cusano </a>
-             </p>
-            <p class="flex flex-col lg:flex-row"> 
-                Credits: 
-                <a href="https://www.linkedin.com/in/giuseppe-g/" class="hover:brightness-75 active:brightness-50 transition-all duration-200 lg:pl-1"> - Ganci Dev </a>                 
+                Crediti idea originale: 
+                <a href="https://www.linkedin.com/in/giuseppe-g/" class="hover:brightness-75 active:brightness-50 transition-all duration-200 lg:pl-1"> <span class="lg:hidden">-</span> Ganci Dev </a>                 
                 <a href="https://www.instagram.com/ashenclock_/" class="hover:brightness-75 active:brightness-50 transition-all duration-200 lg:pl-1"> - Ashenclock </a>
-             </p>
+            </p>
+            <p class="flex flex-col justify-end"> 
+                © Vivere Ingegneria 2025                 
+            </p>
+
         </footer>
 
     </body>
@@ -334,12 +377,25 @@
             dropZone.classList.add('dragging');
         });
 
+        // Listen for the reset event in the form, then reset the preview
+        const form = document.getElementById("filigrana-form");
+        form.addEventListener("reset", () => {
+            resetPreview();
+        });
+
+        function resetPreview(){
+            preview.classList.remove("h-20");
+            preview.classList.remove("md:h-60")
+        }
+
         // Funzione per visualizzare il nome dei file PDF e DOCX
         function displayFiles(files) {
 
             // Se non ci sono file, mostriamo il messaggio appropriato
             if (files.length === 0) {
                 preview.innerHTML = "Non hai ancora inserito nessun file da filigranare!";
+                preview.classList.remove("h-20")
+                preview.classList.remove("md:h-60")
                 return;
             }
 
@@ -348,12 +404,17 @@
 
             // Mostra i file nella lista
             preview.innerHTML = ""; // Pulisce l'anteprima prima di aggiungere i nuovi file
+            preview.classList.add("h-20")
+            preview.classList.add("md:h-60")
+
 
             for (const file of files) 
             {
                 const li = document.createElement("li");
 
                 li.classList.add('flex');
+                li.classList.add('justify-between');
+                li.classList.add('w-full');
                 li.setAttribute('data-filename', file.name); // Impostiamo il nome del file come dato per il li
 
                 // Tronchiamo il nome del file a 20 caratteri ed aggiungiamo i puntini, per una questione di migliore visualizzazione
@@ -469,5 +530,45 @@
         changeOpacity();
 
     </script>
+
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            "name": "Vivere Filigrana",
+            "operatingSystem": "Web",
+            "applicationCategory": "UtilityApplication",
+            "description": "Utility per applicare filigrane a PDF e Word usando i loghi ufficiali di Vivere Ateneo e dei suoi staff.",
+            "url": "https://filigrana.vivereateneo.com/",
+            "author": [
+                {
+                    "@type": "Person",
+                    "name": "Daniele Orazio Susino",
+                        "url": "https://susino.dev",
+                        "sameAs": [
+                            "https://www.linkedin.com/in/susinodaniele/",
+                            "https://github.com/Deltekk",
+                            "https://www.instagram.com/daniele.susino/"
+                        ]
+                },
+                {
+                    "@type": "Person",
+                    "name": "Giovanni Luca Cusano",
+                    "url": "https://www.linkedin.com/in/giovanni-luca-cusano/"
+                },
+                {
+                    "@type": "Person",
+                    "name": "Gabriele Amantia",
+                    "url": "http://www.linkedin.com/in/gabrieleamantia"
+                }
+            ],
+            "publisher": {
+                "@type": "Organization",
+                "name": "Vivere Ateneo",
+                "url": "https://vivereateneo.com"
+            }
+        }
+    </script>
+
 
 </html>

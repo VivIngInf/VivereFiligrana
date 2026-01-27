@@ -67,7 +67,11 @@ sudo apt install libreoffice
     pip install -r requirements.txt
 ```
 
-- **npm (development only)**: npm è utilizzato solo durante lo sviluppo e non è richiesto per il deployment.
+- **npm (development only)**: npm è utilizzato solo durante lo sviluppo per buildare gli stili css e non è richiesto per il deployment.
+
+``` shell
+    npm run watch
+```
 
 ## Avviare l'applicazione
 

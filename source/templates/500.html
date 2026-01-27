@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>500 - Errore interno del server</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/output.css') }}">
+
+    <!-- SEO Optimization -->
+
+    <link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}" />
+    <meta name="description" content="Pagina di errore 500 del sito Vivere Filigrana">
+    <meta name="author" content="Daniele Orazio Susino, Giovanni Luca Cusano, Gabriele Amantia">
+
+</head>
+<body class="h-screen w-screen font-montserrat text-white-vivere">
+
+    <header class="bg-white-vivere h-20 flex flex-row justify-between items-center w-screen text-black-vivere text-base md:text-base lg:text-lg xl:text-xl">
+        <div class="flex flex-row justify-start items-center w-full">
+            <a href="{{ url_for('index') }}">
+                    <img src="{{ url_for('static', filename='images/vivereLogo.png') }}" alt="Logo Vivere Filigrana" class="w-10 h-10 lg:w-16 lg:h-16 mx-2.5 my-1 md:mx-5 md:my-2">
+                </a>  
+            <h1 class="font-semibold hidden sm:block"> Vivere Filigrana </h1>
+        </div>        
+        <nav class="flex flex-row justify-end items-center mx-2.5 md:mx-5 my-2 w-full gap-2 md:gap-5">
+            <a href="{{ url_for('index') }}#Introduction" class="font-semibold hover:scale-110 transition-all duration-200"> Introduzione </a>
+            <a href="{{ url_for('index') }}#Filigrana" class="font-semibold hover:scale-110 transition-all duration-200"> Filigrana </a>
+            <a href="{{ url_for('index') }}#Credits" class="font-semibold hover:scale-110 transition-all duration-200"> Crediti </a>
+        </nav>
+    </header>        
+
+    <!-- Background -->
+    
+    <div class="absolute h-screen w-screen bg-radial-[at_25%_25%] from-[#3C4CDB] to-[#360083] to-75% z-0"></div>
+
+    <div class="flex justify-center items-center w-screen h-full">
+        <!-- Content -->
+        <div class="w-2/3 h-fit z-10 flex flex-col items-center justify-center text-center backdrop-blur-sm p-10 rounded-2xl shadow-2xl bg-white text-black">
+            <h1 class="text-6xl md:text-7xl lg:text-8xl font-bold text-shadow-lg mb-5">500</h1>
+            <p class="text-md md:text-2xl lg:text-3xl mb-10 text-shadow-lg">Ops! Qualcosa è andato storto sul server.</p>
+            <a href="{{ url_for('index') }}" class="text-sm md:text-xl bg-white-vivere border-black border-solid border-2 hover:border-0 hover:bg-[#3C4CDB] active:bg-[#360083] hover:text-white-vivere active:text-white-vivere rounded-full px-8 py-3 text-black-vivere shadow-2xl hover:scale-110 transition-all duration-200">Torna alla Home</a>
+        </div>
+    </div>
+
+</body>
+</html>
