@@ -1,7 +1,7 @@
 {% import "credit.html" as credit %}
 
 <!DOCTYPE html>
-<html lang="it" class="scroll-smooth">
+<html lang="it" class="scroll-smooth overflow-x-hidden">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -80,7 +80,7 @@
                     
                     <div class="w-full xl:w-1/2 flex flex-col justify-start xl:justify-center items-center gap-10">
                         
-                        <ul id="preview" class="text-sm xl:text-xl font-bold xl:mb-5 text-center flex flex-col items-center overflow-x-hidden overflow-y-scroll w-fit px-2">
+                        <ul id="preview" class="text-sm xl:text-xl font-bold xl:mb-5 text-center flex flex-col items-center overflow-x-hidden w-fit px-2">
                             Non hai ancora inserito nessun file da filigranare!
                         </ul>
 
@@ -385,7 +385,8 @@
 
         function resetPreview(){
             preview.classList.remove("h-20");
-            preview.classList.remove("md:h-60")
+            preview.classList.remove("md:h-60");
+            preview.classList.remove("overflow-y-scroll");
         }
 
         // Funzione per visualizzare il nome dei file PDF e DOCX
@@ -406,7 +407,7 @@
             preview.innerHTML = ""; // Pulisce l'anteprima prima di aggiungere i nuovi file
             preview.classList.add("h-20")
             preview.classList.add("md:h-60")
-
+            preview.classList.add("overflow-y-scroll");
 
             for (const file of files) 
             {
