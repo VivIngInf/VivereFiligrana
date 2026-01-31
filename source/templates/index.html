@@ -58,7 +58,7 @@
         </section>
 
         <!-- Form -->
-        <section id="Filigrana" class="flex flex-col h-full w-screen justify-center items-center  z-10 backdrop-blur-sm p-3 md:p-20 text-center bg-radial-[at_25%_25%] from-[#0DC08F] to-[#00AFB9] to-75% ">
+        <section id="Filigrana" class="flex flex-col h-screen w-screen justify-center items-center  z-10 backdrop-blur-sm p-3 md:p-20 text-center bg-radial-[at_25%_25%] from-[#0DC08F] to-[#00AFB9] to-75% ">
             
             <h1 class="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-shadow-lg p-2 lg:p-10"> FILIGRANA </h1>
             
@@ -145,10 +145,10 @@
         </section>
 
         <!-- Made by -->
-        <section id="Credits" class="flex gap-5 flex-col h-full w-screen justify-center items-center z-10 backdrop-blur-sm text-center bg-radial-[at_25%_25%] from-[#3C4CDB] to-[#360083] to-75%">
-            <h3 class="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-shadow-lg p-2 lg:p-10"> MADE WITH ❤️ BY </h1>
-                                        
-                <div class=" flex flex-row justify-around  w-screen p-2 lg:p-5  2xl:p-20 flex-wrap gap-y-5">
+        <section id="Credits" class="h-screen w-screen justify-center flex flex-column content-center items-center  p-2 lg:p-5 2xl:p-20 flex-wrap gap-y-10 gap-x-20 z-10 backdrop-blur-sm text-center bg-radial-[at_25%_25%] from-[#3C4CDB] to-[#360083] to-75%">
+            
+            
+                    <h3 class="w-screen h-fit text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-shadow-lg py-2v lg:py-5 xl:py-10 2xl:py-20"> MADE WITH ❤️ BY </h1>
 
                     {{ credit.credit_card(
                         image_url=url_for('static', filename='images/Daniele_Orazio_Susino.png'),
@@ -176,13 +176,14 @@
                     ) }}
                     
 
-                </div>                                        
+                
+                                                           
 
         </section>
 
         <footer class="px-2 md:px-5 py-1 md:py-2 fixed bottom-0 text-white-vivere flex flex-row justify-between w-screen z-50 text-xs md:text-base">
             <p class="flex flex-col lg:flex-row"> 
-                Crediti idea originale: 
+                Idea originale: 
                 <a href="https://www.linkedin.com/in/giuseppe-g/" class="hover:brightness-75 active:brightness-50 transition-all duration-200 lg:pl-1"> <span class="lg:hidden">-</span> Ganci Dev </a>                 
                 <a href="https://www.instagram.com/ashenclock_/" class="hover:brightness-75 active:brightness-50 transition-all duration-200 lg:pl-1"> - Ashenclock </a>
             </p>

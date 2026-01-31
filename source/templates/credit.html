@@ -1,30 +1,30 @@
 {% macro credit_card(image_url, name, role, linkedin_url="", instagram_url="", website_url = "") %}
-<div class="flex flex-col justify-around items-center w-fit gap-5">
+<div class="flex flex-col justify-around items-center w-fit h-fit md:gap-5">
     
-    <div class="flex flex-row justify-center items-center w-full">
+    <div class="flex flex-row justify-center items-center w-full h-fit">
         <img src="{{ image_url }}" alt="{{ name }} Pro Pic" class="aspect-square h-16 md:w-16 lg:h-30 lg:w-30 xl:h-50 xl:w-50 rounded-full shadow-2xl hover:scale-110 transition-all duration-200">
         <div class="flex flex-col gap-1 md:gap-2 w-full text-left justify-start ml-5 ">
             <h4 class="text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold text-shadow-lg w-full"> {{ name }} </h4>
             <p class="text-sm md:text-base lg:text-lg xl:text-xl font-bold text-shadow-lg w-full"> {{ role }} </p>
         </div> 
     </div>
-    <div class="flex flex-row items-center justify-center gap-5 w-full text-xs md:text-sm lg:text-base xl:text-lg">
+    <div class="h-fit flex flex-row items-center justify-center gap-5 w-full text-xs md:text-sm lg:text-base xl:text-lg">
         {% if linkedin_url %}
-            <a href="{{ linkedin_url }}" class="w-30 md:w-36 lg:w-40 xl:w-50 flex justify-around items-center bg-white-vivere hover:bg-gray-300 active:bg-gray-400 rounded-full px-5 lg:px-10 py-1.5 lg:py-3 text-black-vivere shadow-2xl hover:scale-110 transition-all duration-200 cursor-pointer ease-in-out">
-                <i class="fa-brands fa-linkedin mr-2"></i> Linkedin
+            <a href="{{ linkedin_url }}" class="w-fit flex justify-around items-center bg-white-vivere hover:bg-gray-300 active:bg-gray-400 rounded-full p-2 md:p-3 lg:p-5 text-black-vivere shadow-2xl hover:scale-110 transition-all duration-200 cursor-pointer ease-in-out">
+                <i class="text-lg md:text-xl lg:text-2xl xl:text-4xl fa-brands fa-linkedin"></i>
             </a>
         {% endif %}
         
         {% if instagram_url %}
-            <a href="{{ instagram_url }}" class="w-30 md:w-36 lg:w-40 xl:w-50 flex justify-around items-center bg-white-vivere hover:bg-gray-300 active:bg-gray-400 rounded-full px-5 lg:px-10 py-1.5 lg:py-3 text-black-vivere shadow-2xl hover:scale-110 transition-all duration-200 cursor-pointer ease-in-out">
-                <i class="fa-brands fa-instagram-square mr-2"></i> Instagram
+            <a href="{{ instagram_url }}" class="w-fit flex justify-around items-center bg-white-vivere hover:bg-gray-300 active:bg-gray-400 rounded-full p-2 md:p-3 lg:p-5 text-black-vivere shadow-2xl hover:scale-110 transition-all duration-200 cursor-pointer ease-in-out">
+                <i class="text-lg md:text-xl lg:text-2xl xl:text-4xl fa-brands fa-instagram-square"></i>
             </a>
         {% endif %}
 
         
         {% if website_url %}
-            <a href="{{ website_url }}" class="hidden w-30 md:w-36 lg:w-40 xl:w-50 md:flex justify-around items-center bg-white-vivere hover:bg-gray-300 active:bg-gray-400 rounded-full px-5 lg:px-10 py-1.5 lg:py-3 text-black-vivere shadow-2xl hover:scale-110 transition-all duration-200 cursor-pointer ease-in-out">
-                <i class="fa-solid fa-globe mr-2"></i> Sito
+            <a href="{{ website_url }}" class="w-fit flex justify-around items-center bg-white-vivere hover:bg-gray-300 active:bg-gray-400 rounded-full p-2 md:p-3 lg:p-5 text-black-vivere shadow-2xl hover:scale-110 transition-all duration-200 cursor-pointer ease-in-out">
+                <i class="text-lg md:text-xl lg:text-2xl xl:text-4xl fa-solid fa-globe"></i>
             </a>
         {% endif %}
     </div>
