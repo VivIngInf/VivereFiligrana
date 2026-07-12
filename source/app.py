@@ -19,8 +19,8 @@ app = Flask(__name__)
 app.debug = debugMode
 
 # Configs for file upload
-app.config['UPLOAD_FOLDER'] = './static/uploads'
-app.config['WATERMARK_FOLDER'] = './static/watermarks'
+app.config['UPLOAD_FOLDER'] = os.path.join(app.root_path, 'static', 'uploads')
+app.config['WATERMARK_FOLDER'] = os.path.join(app.root_path, 'static', 'watermarks')
 app.config['ALLOWED_EXTENSIONS'] = {'pdf', 'docx', 'doc'}
 
 def handle_error(title, message, code=400):
