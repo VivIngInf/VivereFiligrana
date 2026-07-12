@@ -83,6 +83,34 @@ Una volta installate tutte le dipendenze e settato l'enviroment, puoi avviare l'
 
 Questo avvierà il server Flask localmente. Apri il browser e naviga in `http://127.0.0.1:5000` per accedere al sito.
 
+## Buildare e servire l'applicazione
+
+Per buildare il progetto come Python wheel, prima bisogna installare i tools di building:
+
+```shell
+    pipx install hatch
+    pip install build
+```
+
+Quindi, dalla root del progetto, buildare il wheel:
+
+```shell
+	python -m build --wheel
+```
+
+Il file .whl risultante sarà piazzato nella directory dist/ e può essere installato con pip:
+
+```shell
+    pip install dist/<package-name>.whl.
+```
+
+Quindi si potrà usare qualcosa come gunicorn per esporlo all'Internet:
+
+```shell
+	#!/usr/bin/bash
+	gunicorn vivere_filigrana:app --bind 0.0.0.0:8000
+```
+
 ## 👥 Made By
 
 Vivere Filigrana è stato sviluppato da:

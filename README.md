@@ -83,6 +83,34 @@ Once you have installed all dependencies and set up the environment, you can run
 
 This will start the Flask server locally. Open your browser and navigate to `http://127.0.0.1:5000` to access the application.
 
+## Building and serving the Application
+
+Building the Application
+
+To build the project as a Python wheel, first install the build tools:
+```shell
+    pipx install hatch
+    pip install build
+```
+
+Then, from the project root, build the wheel:
+
+```shell
+	python -m build --wheel
+```
+
+The resulting .whl file will be placed in the dist/ directory and can be installed with pip:
+```shell
+   pip install dist/<package-name>.whl.
+```
+
+Then you can use something like gunicorn to expose it to the internet:
+
+```shell
+	#!/usr/bin/bash
+	gunicorn vivere_filigrana:app --bind 0.0.0.0:8000
+```
+
 ## 👥 Made By
 
 Vivere Filigrana was developed by:
