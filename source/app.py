@@ -23,6 +23,8 @@ app.config['UPLOAD_FOLDER'] = os.path.join(app.root_path, 'static', 'uploads')
 app.config['WATERMARK_FOLDER'] = os.path.join(app.root_path, 'static', 'watermarks')
 app.config['ALLOWED_EXTENSIONS'] = {'pdf', 'docx', 'doc'}
 
+os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
+
 def handle_error(title, message, code=400):
     app.logger.error(message)
     return render_template("error.html", title=title, message=message), code
